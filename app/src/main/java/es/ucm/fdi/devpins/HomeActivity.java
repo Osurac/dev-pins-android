@@ -16,6 +16,7 @@ import es.ucm.fdi.devpins.databinding.ActivityHomeBinding;
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
+    private int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,8 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Bundle b = getIntent().getExtras();
+        user_id = b.getInt("user_id");
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -33,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void newPin(View view){
         Intent newPinIntent = new Intent(this, CreatePinActivity.class);
+        newPinIntent.putExtra("user_id", user_id);
         startActivity(newPinIntent);
     }
 }

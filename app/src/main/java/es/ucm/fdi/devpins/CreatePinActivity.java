@@ -27,7 +27,9 @@ public class CreatePinActivity extends AppCompatActivity {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String url = String.valueOf(urlEditText.getText());
         int id = Pin.pinArrayList.size();
-        Pin newPin = new Pin(id, url, false);
+        Bundle b = getIntent().getExtras();
+        int user_id = b.getInt("user_id");
+        Pin newPin = new Pin(id, user_id, url, false);
         Pin.pinArrayList.add(newPin);
         sqLiteManager.addPinToDatabase(newPin);
         finish();

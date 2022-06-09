@@ -2,6 +2,7 @@ package es.ucm.fdi.devpins;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,9 +34,24 @@ public class LoginActivity extends AppCompatActivity {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String email = String.valueOf(emailEditText.getText());
         String pwd = String.valueOf(passwordEditText.getText());
-        int id = sqLiteManager.getLastUserId()+1;
-        User newUser = new User(id, email, pwd);
-        sqLiteManager.addUserToDatabase(newUser);
-        finish();
+        if(sqLiteManager.checkUserExist(email) == false){
+            int id = sqLiteManager.getLastUserId()+1;
+            User newUser = new User(id, email, pwd);
+            sqLiteManager.addUserToDatabase(newUser);
+            Intent i = new Intent(this, HomeActivity.class);
+            i.putExtra("user_id", id);
+            finish();
+            startActivity(i);
+        }else{
+            int userFetch = sqLiteManager.login( email, pwd);
+            if(userFetch != -1){
+                User newUser = new User(userFetch, email, pwd);
+                Intent i = new Intent(this, HomeActivity.class);
+                i.putExtra("user_id", userFetch);
+                finish();
+                startActivity(i);
+            }
+        }
+
     }
 }

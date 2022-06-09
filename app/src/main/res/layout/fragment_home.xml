@@ -23,8 +23,8 @@
 
     <ListView
         android:id="@+id/pinsListView"
-        android:layout_width="411dp"
-        android:layout_height="736dp"
+        android:layout_width="414dp"
+        android:layout_height="588dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

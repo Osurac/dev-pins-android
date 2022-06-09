@@ -5,17 +5,23 @@ import java.util.ArrayList;
 public class Pin {
     public static ArrayList<Pin> pinArrayList = new ArrayList<>();
     private int id;
+    private int user_id;
     private String url;
     private boolean fav;
 
-    public Pin(int id, String url, boolean fav) {
+    public Pin(int id, int user_id, String url, boolean fav) {
         this.id = id;
+        this.user_id = user_id;
         this.url = url;
         this.fav = fav;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getUserId() {
+        return user_id;
     }
 
     public boolean getFav() {

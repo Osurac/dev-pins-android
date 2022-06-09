@@ -24,6 +24,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String USER_PASSWORD_FIELD ="password";
 
     private static final String PIN_ID_FIELD ="id";
+    private static final String PIN_USER_ID_FIELD ="user_id";
     private static final String PIN_URL_FIELD ="url";
     private static final String PIN_FAV_FIELD ="fav";
     private static final String PIN_TYPE_FIELD ="type";
@@ -32,6 +33,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+       // context.deleteDatabase(DATABASE_NAME);
     }
 
     public static SQLiteManager instanceOfDatabase(Context context){
@@ -56,6 +58,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(PIN_COUNTER)
                 .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
                 .append(PIN_ID_FIELD)
+                .append(" TEXT, ")
+                .append(PIN_USER_ID_FIELD)
                 .append(" TEXT, ")
                 .append(PIN_URL_FIELD)
                 .append(" TEXT, ")
@@ -95,10 +99,35 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.insert(USER_TABLE_NAME, null, contentValues);
     }
 
+    public boolean checkUserExist(String email) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+USER_TABLE_NAME+" WHERE "+USER_TABLE_NAME+".email = '"+email+"'", null)){
+            if(result.getCount() != 0){
+              return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public int login(String email, String pwd) {
+        int id = -1;
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+USER_TABLE_NAME+" WHERE "+USER_TABLE_NAME+".email = '"+email+"'", null)){
+            if(result.getCount() != 0){
+                while(result.moveToNext()){
+                    id = result.getInt(0);
+                }
+            }
+        }
+        return id;
+    }
+
     public void addPinToDatabase(Pin pin) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(PIN_ID_FIELD, pin.getId());
+        contentValues.put(PIN_USER_ID_FIELD, pin.getUserId());
         contentValues.put(PIN_URL_FIELD, pin.getUrl());
         contentValues.put(PIN_FAV_FIELD, pin.getFav());
         sqLiteDatabase.insert(PIN_TABLE_NAME, null, contentValues);
@@ -120,9 +149,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
             if(result.getCount() != 0){
                 while(result.moveToNext()){
                     int id = result.getInt(1);
-                    String url = result.getString(2);
-                    String fav = result.getString(3);
-                    Pin pin = new Pin(id, url,  Boolean.parseBoolean(fav));
+                    int user_id = result.getInt(2);
+                    String url = result.getString(3);
+                    String fav = result.getString(4);
+                    Pin pin = new Pin(id, user_id, url,  Boolean.parseBoolean(fav));
                     Pin.pinArrayList.add(pin);
                 }
             }
