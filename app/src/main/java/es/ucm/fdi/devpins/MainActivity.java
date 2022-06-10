@@ -9,7 +9,7 @@ import android.os.Handler;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     *
+     *Función onCreate de MainActivity
      * @param savedInstanceState
      */
     @Override

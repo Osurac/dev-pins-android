@@ -22,6 +22,14 @@ public class FragmentHome extends Fragment {
 
     private ListView pinListView;
     private  PinAdapter pinAdapter;
+
+    /**
+     * Función onCreateView de FragmenHome
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -35,6 +43,9 @@ public class FragmentHome extends Fragment {
         return view;
     }
 
+    /**
+     * Listener para el pin seleccionado
+     */
     private void setOnClickListener() {
         pinListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -47,13 +58,18 @@ public class FragmentHome extends Fragment {
         });
     }
 
+    /**
+     * Función que carga los datos de la bbdd
+     */
     private void loadFromDBToMemory() {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(getActivity());
         sqLiteManager.populatePinListArray();
         pinAdapter.notifyDataSetChanged();
     }
 
-
+    /**
+     * Función que notifica cambios al adaptador de los pins
+     */
     @Override
     public void onResume() {
         super.onResume();

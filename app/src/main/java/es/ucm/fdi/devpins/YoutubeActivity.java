@@ -17,7 +17,11 @@ public class YoutubeActivity extends YouTubeBaseActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private YouTubePlayer.OnInitializedListener onInitializedListener;
-    
+
+    /**
+     * Función onCreate de YoutubeActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +30,9 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         String idYoutube = prev.getExtras().getString("url", "");
         initWidgets(idYoutube);
     }
-
+    /**
+     * Función de inicizalicación de widgets. Contiene el ApiKey
+     */
     private void initWidgets(String idYoutube) {
         youTubePlayerView = findViewById(R.id.YouTubePlayerView);
         onInitializedListener = new YouTubePlayer.OnInitializedListener(){

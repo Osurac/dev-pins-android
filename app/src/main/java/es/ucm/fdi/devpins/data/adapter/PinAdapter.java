@@ -17,10 +17,22 @@ import es.ucm.fdi.devpins.data.model.Pin;
 
 public class PinAdapter extends ArrayAdapter<Pin> {
 
+    /**
+     * Constructor del adaptador
+     * @param context
+     * @param pins
+     */
     public PinAdapter(Context context, List<Pin> pins){
         super(context, 0, pins);
     }
 
+    /**
+     * Función que devuelve la vista del pin
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

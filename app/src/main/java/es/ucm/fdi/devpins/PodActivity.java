@@ -49,7 +49,10 @@ public class PodActivity extends AppCompatActivity {
     // File url to download
     private static String file_url;
 
-
+    /**
+     * Función onCreate de PodActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,9 @@ public class PodActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Función que pausa el podcast
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -65,7 +71,9 @@ public class PodActivity extends AppCompatActivity {
         mediaPlayer.pause();
         imagePlayPause.setImageResource(R.drawable.ic_baseline_pause);
     }
-
+    /**
+     * Función de inicizalicación de widgets
+     */
     private void initWidgets() {
         Intent prev = getIntent();
         urlPod = prev.getExtras().getString("url", "");
@@ -127,6 +135,9 @@ public class PodActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Función de preparación del reproductor
+     */
     private void prepareMediaPlayer(){
         try{
             mediaPlayer.setDataSource(urlPod);
@@ -137,6 +148,9 @@ public class PodActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updater del reproductor
+     */
     private Runnable updater = new Runnable() {
         @Override
         public void run() {
@@ -146,6 +160,9 @@ public class PodActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Función que setea el progreso de la seekbar
+     */
     private void updateSeekBar(){
         if(mediaPlayer.isPlaying()){
             playerSeekBar.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration()) * 100));
@@ -153,6 +170,11 @@ public class PodActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Función que transforma los milisegundos en un formato legible
+     * @param milliseconds
+     * @return
+     */
     private String millisecondsToTimer(long milliseconds){
         String timerString = "";
         String secondString;

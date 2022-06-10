@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     /**
-     *
+     *Función onCreate de LoginActivity
      * @param savedInstanceState
      */
     @Override
@@ -25,11 +25,18 @@ public class LoginActivity extends AppCompatActivity {
         initWidgets();
     }
 
+    /**
+     * Función de inicizalicación de widgets
+     */
     private void initWidgets() {
         emailEditText = findViewById(R.id.editTextTextEmailAddress);
         passwordEditText = findViewById(R.id.editTextTextPassword);
     }
 
+    /**
+     * función que ejecuta el login y comprueba si es login o registro
+     * @param view
+     */
     public void login(View view){
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String email = String.valueOf(emailEditText.getText());

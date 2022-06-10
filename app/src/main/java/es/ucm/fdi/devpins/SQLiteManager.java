@@ -31,11 +31,20 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     private int user_id;
 
+    /**
+     * Constructor SQLiteManager
+     * @param context
+     */
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         //context.deleteDatabase(DATABASE_NAME);
     }
 
+    /**
+     * Instanciacióin en caso de ser null
+     * @param context
+     * @return
+     */
     public static SQLiteManager instanceOfDatabase(Context context){
         if(sqlIteManager == null){
             sqlIteManager = new SQLiteManager(context);
@@ -43,12 +52,20 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return sqlIteManager;
     }
 
+    /**
+     * Función onCreate que crea las tablas
+     * @param sqLiteDatabase
+     */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
       createUserDatabase(sqLiteDatabase);
       createPinDatabase(sqLiteDatabase);
     }
 
+    /**
+     * Creación tabla pis
+     * @param sqLiteDatabase
+     */
     private void createPinDatabase(SQLiteDatabase sqLiteDatabase) {
         StringBuilder sql;
         sql = new StringBuilder()
@@ -70,6 +87,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql.toString());
     }
 
+    /**
+     * Creación tabla usuarios
+     * @param sqLiteDatabase
+     */
     private void createUserDatabase(SQLiteDatabase sqLiteDatabase) {
         StringBuilder sql;
         sql = new StringBuilder()
@@ -92,6 +113,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Añadir usuario a la bbdd
+     * @param user
+     */
     public void addUserToDatabase(User user) {
         user_id = user.getId();
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -102,6 +127,11 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.insert(USER_TABLE_NAME, null, contentValues);
     }
 
+    /**
+     * Función que chequea si exciste un usuario
+     * @param email
+     * @return
+     */
     public boolean checkUserExist(String email) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+USER_TABLE_NAME+" WHERE "+USER_TABLE_NAME+".email = '"+email+"'", null)){
@@ -113,6 +143,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Función de login
+     * @param email
+     * @param pwd
+     * @return
+     */
     public int login(String email, String pwd) {
         int id = -1;
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -129,6 +165,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return id;
     }
 
+    /**
+     * Añadir un pin a la bbdd
+     * @param pin
+     */
     public void addPinToDatabase(Pin pin) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -140,6 +180,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.insert(PIN_TABLE_NAME, null, contentValues);
     }
 
+    /**
+     * Actualizar pin existente
+     * @param pin
+     */
     public void updatePinInDatabase(Pin pin){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -149,6 +193,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.update(PIN_TABLE_NAME, contentValues, PIN_ID_FIELD+" =?", new String[]{String.valueOf(pin.getId())});
     }
 
+    /**
+     * Llenar de datos la lista principal de pins
+     */
     public void populatePinListArray(){
         populatePinFavListArray();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -168,7 +215,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
             }
         }
     }
-
+    /**
+     * Llenar de datos la lista de pins favoritos
+     */
     public void populatePinFavListArray(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Pin.pinArrayFavList.clear();
@@ -188,6 +237,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Llenar de datos la lista de pins por tipo
+     * @param outType
+     */
     public void populatePinListTypeArray(String outType){
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -218,7 +271,11 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
     }
 
-
+    /**
+     * Función que devuelve un pin por id
+     * @param idOut
+     * @return
+     */
     public Pin getPinFromId(int idOut){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Pin pin = null;
@@ -238,6 +295,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return pin;
     }
 
+    /**
+     * Función que devuelve el ultimo id de usuario
+     * @return
+     */
     public int getLastUserId(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         int id = 0;
@@ -251,6 +312,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return id;
     }
 
+    /**
+     * Eliminar pin  de la bbdd
+     * @param selectedPin
+     */
     public void deletePinInDatabase(Pin selectedPin) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.execSQL("DELETE FROM "+PIN_TABLE_NAME+" WHERE id='"+selectedPin.getId()+"'");

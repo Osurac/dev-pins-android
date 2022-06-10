@@ -21,6 +21,14 @@ public class FragmentPins extends Fragment {
 
     private ListView pinListView;
     private PinAdapter pinAdapter;
+
+    /**
+     * Función onCreateView de FragmentPins
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -33,13 +41,17 @@ public class FragmentPins extends Fragment {
         setOnClickListener();
         return view;
     }
-
+    /**
+     * Función que carga los datos de la bbdd
+     */
     private void loadFromDBToMemory() {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(getActivity());
         sqLiteManager.populatePinListTypeArray("basic");
         pinAdapter.notifyDataSetChanged();
     }
-
+    /**
+     * Listener para el pin seleccionado
+     */
     private void setOnClickListener() {
         pinListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,7 +64,9 @@ public class FragmentPins extends Fragment {
         });
     }
 
-
+    /**
+     * Función que notifica cambios al adaptador de los pins
+     */
     @Override
     public void onResume() {
         super.onResume();

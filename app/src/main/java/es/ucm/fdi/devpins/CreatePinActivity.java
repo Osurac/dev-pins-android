@@ -18,6 +18,10 @@ public class CreatePinActivity extends AppCompatActivity {
     private Boolean fav;
     private Switch switchM;
 
+    /**
+     * función onCreate CreatePinAcvitiy
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,9 @@ public class CreatePinActivity extends AppCompatActivity {
         initWidgets();
     }
 
+    /**
+     * * función inicialización widgets
+     */
     private void initWidgets() {
         urlEditText = findViewById(R.id.editTextNewPinUrl);
         switchM = (Switch) findViewById(R.id.switchFav);
@@ -34,6 +41,10 @@ public class CreatePinActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Función que recibe la llamada de guardar el nuevo pin
+     * @param view
+     */
     public void savePin(View view){
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String url = String.valueOf(urlEditText.getText());
@@ -47,6 +58,10 @@ public class CreatePinActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * función que chequea que radio button ha sido pulsado
+     * @param view
+     */
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -68,7 +83,11 @@ public class CreatePinActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * función que chequea si cambió el switch
+     * @param buttonView
+     * @param isChecked
+     */
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked) {
             fav = true;

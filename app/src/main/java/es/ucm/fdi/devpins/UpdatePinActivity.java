@@ -30,6 +30,10 @@ public class UpdatePinActivity extends AppCompatActivity {
     private Pin selectedPin;
     private Button runButton;
 
+    /**
+     * Función onCreate de UpdatePinActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,9 @@ public class UpdatePinActivity extends AppCompatActivity {
         checkEditPin();
     }
 
+    /**
+     * Función que recoge el pin seleccionado
+     */
     private void checkEditPin() {
         Intent prev = getIntent();
         int idPinToEdit = prev.getExtras().getInt(Pin.PIN_EDIT_EXTRA, -1);
@@ -49,7 +56,9 @@ public class UpdatePinActivity extends AppCompatActivity {
             type = selectedPin.getType();
         }
     }
-
+    /**
+     * Función de inicizalicación de widgets
+     */
     private void initWidgets() {
         urlEditText = findViewById(R.id.editTextUpdatePinUrl);
         switchM = (Switch) findViewById(R.id.switchFavEdit);
@@ -81,6 +90,10 @@ public class UpdatePinActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Función de actualización de pin en bbdd
+     * @param view
+     */
     public void updatePin(View view){
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         if(selectedPin == null){
@@ -100,6 +113,10 @@ public class UpdatePinActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * función que chequea que radio button ha sido pulsado
+     * @param view
+     */
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -122,6 +139,11 @@ public class UpdatePinActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * función que chequea si cambió el switch
+     * @param buttonView
+     * @param isChecked
+     */
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked) {
             fav = true;
@@ -130,6 +152,10 @@ public class UpdatePinActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Función que elimina un pin
+     * @param view
+     */
     public void deletePin(View view) {
         SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         sqLiteManager.deletePinInDatabase(selectedPin);

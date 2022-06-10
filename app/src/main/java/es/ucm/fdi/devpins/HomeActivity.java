@@ -18,6 +18,10 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     private int user_id;
 
+    /**
+     * Función onCreate de HomeActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +37,20 @@ public class HomeActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
     }
 
+    /**
+     * Función que inicia la activity de CreatePinActivity
+     * @param view
+     */
     public void newPin(View view){
         Intent newPinIntent = new Intent(this, CreatePinActivity.class);
         newPinIntent.putExtra("user_id", user_id);
         startActivity(newPinIntent);
     }
 
+    /**
+     * Función que devuelve el user_id
+     * @return
+     */
     public int getUserId(){
         return user_id;
     }
