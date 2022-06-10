@@ -35,7 +35,7 @@ public class PinAdapter extends ArrayAdapter<Pin> {
         if(String.valueOf(isFav) == "true"){
             fav.setText("Favorito");
         }else{
-            fav.setText("No");
+            fav.setText("");
         }
         return convertView;
     }

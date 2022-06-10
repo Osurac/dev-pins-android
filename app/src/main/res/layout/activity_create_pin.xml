@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondary_black"
     tools:context=".CreatePinActivity">
 
 
@@ -31,8 +32,8 @@
         android:id="@+id/buttonCreatePin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_create_pin"
         android:onClick="savePin"
+        android:text="@string/action_create_pin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/prompt_fav"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreatePin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,21 +67,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/radio_text_1" />
+            android:text="@string/radio_text_1"
+            android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/radio_yt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/radio_text_2" />
+            android:text="@string/radio_text_2"
+            android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/radio_pod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/radio_text_3" />
+            android:text="@string/radio_text_3"
+            android:textColor="@color/white" />
 
     </TableRow>
 

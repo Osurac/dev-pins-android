@@ -72,8 +72,10 @@ public class UpdatePinActivity extends AppCompatActivity {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedPin.getUrl()));
                     startActivity(browserIntent);
                 }else{
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
-                    startActivity(browserIntent);
+                    Intent i = new Intent(UpdatePinActivity.this, PodActivity.class);
+                    i.putExtra("url", selectedPin.getUrl());
+                    finish();
+                    startActivity(i);
                 }
 
             }

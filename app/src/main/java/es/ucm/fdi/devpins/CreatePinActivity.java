@@ -28,6 +28,7 @@ public class CreatePinActivity extends AppCompatActivity {
     private void initWidgets() {
         urlEditText = findViewById(R.id.editTextNewPinUrl);
         switchM = (Switch) findViewById(R.id.switchFav);
+        fav = false;
         if (switchM != null) {
             switchM.setOnCheckedChangeListener(this::onCheckedChanged);
         }
