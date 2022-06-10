@@ -8,6 +8,7 @@
     <string name="action_sign_in">Login / Registro</string>
     <string name="action_create_pin">Crear Pin</string>
     <string name="action_update_pin">Actualizar Pin</string>
+    <string name="action_action_pin">Acción</string>
     <string name="action_delete_pin">Eliminar Pin</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>

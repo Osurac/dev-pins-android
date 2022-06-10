@@ -3,12 +3,20 @@ package es.ucm.fdi.devpins;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import es.ucm.fdi.devpins.data.adapter.PinAdapter;
 import es.ucm.fdi.devpins.data.model.Pin;
@@ -20,6 +28,7 @@ public class UpdatePinActivity extends AppCompatActivity {
     private Boolean fav;
     private Switch switchM;
     private Pin selectedPin;
+    private Button runButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +53,31 @@ public class UpdatePinActivity extends AppCompatActivity {
     private void initWidgets() {
         urlEditText = findViewById(R.id.editTextUpdatePinUrl);
         switchM = (Switch) findViewById(R.id.switchFavEdit);
+        runButton = findViewById(R.id.buttonActionPin);
+
         if (switchM != null) {
             switchM.setOnCheckedChangeListener(this::onCheckedChanged);
         }
+
+        runButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("STATE", "Typo: "+selectedPin.getType());
+                if(type.equals("yt")){
+                    Intent i = new Intent(UpdatePinActivity.this, YoutubeActivity.class);
+                    i.putExtra("url", selectedPin.getUrlIdYoutube());
+                    finish();
+                    startActivity(i);
+                }else if(type.equals("basic")){
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedPin.getUrl()));
+                    startActivity(browserIntent);
+                }else{
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                    startActivity(browserIntent);
+                }
+
+            }
+        });
     }
 
     public void updatePin(View view){

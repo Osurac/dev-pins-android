@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".UpdatePinActivity">
 
-
     <EditText
         android:id="@+id/editTextUpdatePinUrl"
         android:layout_width="374dp"
@@ -29,27 +28,38 @@
 
     <Button
         android:id="@+id/buttonUpdatePin"
-        android:onClick="updatePin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="92dp"
+        android:onClick="updatePin"
         android:text="@string/action_update_pin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextUpdatePinUrl" />
+
+    <Button
+        android:id="@+id/buttonActionPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:onClick="updatePin"
+        android:text="@string/action_action_pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUpdatePin" />
 
     <Button
         android:id="@+id/buttonDeletePin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_delete_pin"
         android:onClick="deletePin"
+        android:text="@string/action_delete_pin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonUpdatePin"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonActionPin"
+        app:layout_constraintVertical_bias="0.046" />
 
     <Switch
         android:id="@+id/switchFavEdit"
