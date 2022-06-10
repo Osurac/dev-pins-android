@@ -12,7 +12,7 @@
         android:id="@+id/editTextNewPinUrl"
         android:layout_width="374dp"
         android:layout_height="46dp"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="104dp"
         android:autofillHints="@string/prompt_url"
         android:background="@color/primary_black"
         android:ems="10"
@@ -22,11 +22,10 @@
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry" />
-
 
     <Button
         android:id="@+id/buttonCreatePin"

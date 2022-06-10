@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">DevPins</string>
     <string name="title_activity_login">Login</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_email">Usuario: </string>
+    <string name="prompt_password">Contraseña: </string>
     <string name="prompt_url">Url: </string>
     <string name="prompt_fav">Favorito</string>
     <string name="action_sign_in">Login / Registro</string>
