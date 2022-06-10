@@ -62,7 +62,6 @@ public class UpdatePinActivity extends AppCompatActivity {
         runButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("STATE", "Typo: "+selectedPin.getType());
                 if(type.equals("yt")){
                     Intent i = new Intent(UpdatePinActivity.this, YoutubeActivity.class);
                     i.putExtra("url", selectedPin.getUrlIdYoutube());

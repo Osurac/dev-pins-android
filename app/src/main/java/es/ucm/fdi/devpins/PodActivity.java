@@ -133,7 +133,7 @@ public class PodActivity extends AppCompatActivity {
             mediaPlayer.prepare();
             textTotalDuration.setText(millisecondsToTimer(mediaPlayer.getDuration()));
         }catch (Exception exception){
-            Log.d("STATE", exception.getMessage());
+
         }
     }
 
