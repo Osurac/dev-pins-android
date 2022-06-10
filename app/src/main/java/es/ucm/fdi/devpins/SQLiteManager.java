@@ -29,11 +29,11 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String PIN_FAV_FIELD ="fav";
     private static final String PIN_TYPE_FIELD ="type";
 
-
+    private int user_id;
 
     public SQLiteManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-       // context.deleteDatabase(DATABASE_NAME);
+      // context.deleteDatabase(DATABASE_NAME);
     }
 
     public static SQLiteManager instanceOfDatabase(Context context){
@@ -63,6 +63,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(" TEXT, ")
                 .append(PIN_URL_FIELD)
                 .append(" TEXT, ")
+                .append(PIN_TYPE_FIELD)
+                .append(" TEXT, ")
                 .append(PIN_FAV_FIELD)
                 .append(" BOOLEAN)");
         sqLiteDatabase.execSQL(sql.toString());
@@ -91,6 +93,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     public void addUserToDatabase(User user) {
+        user_id = user.getId();
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_ID_FIELD, user.getId());
@@ -120,6 +123,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 }
             }
         }
+        if(id != -1){
+            user_id = id;
+        }
         return id;
     }
 
@@ -129,6 +135,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(PIN_ID_FIELD, pin.getId());
         contentValues.put(PIN_USER_ID_FIELD, pin.getUserId());
         contentValues.put(PIN_URL_FIELD, pin.getUrl());
+        contentValues.put(PIN_TYPE_FIELD, pin.getType());
         contentValues.put(PIN_FAV_FIELD, pin.getFav());
         sqLiteDatabase.insert(PIN_TABLE_NAME, null, contentValues);
     }
@@ -143,20 +150,92 @@ public class SQLiteManager extends SQLiteOpenHelper {
     }
 
     public void populatePinListArray(){
+        populatePinFavListArray();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Pin.pinArrayList.clear();
-        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+PIN_TABLE_NAME, null)){
+        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+PIN_TABLE_NAME+" WHERE "+PIN_TABLE_NAME+".user_id = '"+user_id+"'", null)){
             if(result.getCount() != 0){
                 while(result.moveToNext()){
                     int id = result.getInt(1);
                     int user_id = result.getInt(2);
                     String url = result.getString(3);
-                    String fav = result.getString(4);
-                    Pin pin = new Pin(id, user_id, url,  Boolean.parseBoolean(fav));
+                    String type = result.getString(4);
+                    String fav = result.getString(5);
+                    boolean value = (result.getInt(5) == 1);
+                    Pin pin = new Pin(id, user_id, url, type, value);
                     Pin.pinArrayList.add(pin);
                 }
             }
         }
+    }
+
+    public void populatePinFavListArray(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Pin.pinArrayFavList.clear();
+        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+PIN_TABLE_NAME+" WHERE "+PIN_TABLE_NAME+".user_id = '"+user_id+"' AND fav = true", null)){
+            if(result.getCount() != 0){
+                while(result.moveToNext()){
+                    int id = result.getInt(1);
+                    int user_id = result.getInt(2);
+                    String url = result.getString(3);
+                    String type = result.getString(4);
+                    String fav = result.getString(5);
+                    boolean value = (result.getInt(5) == 1);
+                    Pin pin = new Pin(id, user_id, url, type, value);
+                    Pin.pinArrayFavList.add(pin);
+                }
+            }
+        }
+    }
+
+    public void populatePinListTypeArray(String outType){
+
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        switch (outType){
+            case "basic":   Pin.pinArrayListBasic.clear(); break;
+            case "yt":   Pin.pinArrayListYT.clear(); break;
+            case "pod":   Pin.pinArrayListPod.clear(); break;
+        }
+
+        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+PIN_TABLE_NAME+" WHERE "+PIN_TABLE_NAME+".type = '"+outType+"' AND "+PIN_TABLE_NAME+".user_id = '"+user_id+"'", null)){
+            if(result.getCount() != 0){
+                while(result.moveToNext()){
+                    int id = result.getInt(1);
+                    int user_id = result.getInt(2);
+                    String url = result.getString(3);
+                    String type = result.getString(4);
+                    String fav = result.getString(5);
+                    boolean value = (result.getInt(5) == 1);
+                    Pin pin = new Pin(id, user_id, url, type, value);
+                    switch (outType){
+                        case "basic":    Pin.pinArrayListBasic.add(pin); break;
+                        case "yt":   Pin.pinArrayListYT.add(pin); break;
+                        case "pod":   Pin.pinArrayListPod.add(pin); break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    public Pin getPinFromId(int idOut){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Pin pin = null;
+        try(Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM "+PIN_TABLE_NAME+" WHERE id = "+idOut, null)){
+            if(result.getCount() != 0){
+                while(result.moveToNext()) {
+                    int id = result.getInt(1);
+                    int user_id = result.getInt(2);
+                    String url = result.getString(3);
+                    String type = result.getString(4);
+                    String fav = result.getString(5);
+                    boolean value = (result.getInt(5) == 1);
+                    pin = new Pin(id, user_id, url, type, value);
+                }
+            }
+        }
+        return pin;
     }
 
     public int getLastUserId(){
@@ -172,4 +251,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return id;
     }
 
+    public void deletePinInDatabase(Pin selectedPin) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE FROM "+PIN_TABLE_NAME+" WHERE id='"+selectedPin.getId()+"'");
+    }
 }

@@ -29,6 +29,7 @@
 
     <Button
         android:id="@+id/buttonUpdatePin"
+        android:onClick="updatePin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
@@ -42,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_delete_pin"
+        android:onClick="deletePin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -50,7 +52,7 @@
         app:layout_constraintVertical_bias="0.144" />
 
     <Switch
-        android:id="@+id/switchFav"
+        android:id="@+id/switchFavEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/prompt_fav"

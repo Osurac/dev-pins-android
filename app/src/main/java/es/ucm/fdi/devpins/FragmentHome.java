@@ -1,9 +1,11 @@
 package es.ucm.fdi.devpins;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -25,12 +27,24 @@ public class FragmentHome extends Fragment {
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
-       // String[] menuItems = {"1", "2", "3"};
         pinListView = (ListView) view.findViewById(R.id.pinsListView);
-        pinAdapter = new PinAdapter(getActivity(), Pin.pinArrayList);
+        pinAdapter = new PinAdapter(getActivity(), Pin.pinArrayFavList);
         pinListView.setAdapter(pinAdapter);
         loadFromDBToMemory();
+        setOnClickListener();
         return view;
+    }
+
+    private void setOnClickListener() {
+        pinListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
+                Pin selectedPin = (Pin) pinListView.getItemAtPosition(i);
+                Intent updatePin = new Intent(getActivity().getApplicationContext(), UpdatePinActivity.class);
+                updatePin.putExtra(Pin.PIN_EDIT_EXTRA, selectedPin.getId());
+                startActivity(updatePin);
+            }
+        });
     }
 
     private void loadFromDBToMemory() {

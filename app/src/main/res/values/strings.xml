@@ -19,4 +19,7 @@
     <string name="tab_text_2">PINS</string>
     <string name="tab_text_3">YTPINS</string>
     <string name="tab_text_4">PODPINS</string>
+    <string name="radio_text_1">Pin</string>
+    <string name="radio_text_2">YouTube</string>
+    <string name="radio_text_3">PodCast</string>
 </resources>

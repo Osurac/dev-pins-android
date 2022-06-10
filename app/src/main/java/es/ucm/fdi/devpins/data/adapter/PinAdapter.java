@@ -29,7 +29,14 @@ public class PinAdapter extends ArrayAdapter<Pin> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.basic_pin, parent, false);
         }
         TextView url = convertView.findViewById(R.id.pin_url);
+        TextView fav = convertView.findViewById(R.id.pin_fav);
         url.setText(pin.getUrl());
+        Boolean isFav = pin.getFav();
+        if(String.valueOf(isFav) == "true"){
+            fav.setText("Favorito");
+        }else{
+            fav.setText("No");
+        }
         return convertView;
     }
 }

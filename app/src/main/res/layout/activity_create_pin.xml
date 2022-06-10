@@ -49,4 +49,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNewPinUrl" />
 
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCreatePin"
+        app:layout_constraintVertical_bias="0.097">
+
+        <RadioButton
+            android:id="@+id/radio_basic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/radio_text_1" />
+
+        <RadioButton
+            android:id="@+id/radio_yt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/radio_text_2" />
+
+        <RadioButton
+            android:id="@+id/radio_pod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/radio_text_3" />
+
+    </TableRow>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

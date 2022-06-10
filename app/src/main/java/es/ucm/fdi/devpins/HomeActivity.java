@@ -38,4 +38,8 @@ public class HomeActivity extends AppCompatActivity {
         newPinIntent.putExtra("user_id", user_id);
         startActivity(newPinIntent);
     }
+
+    public int getUserId(){
+        return user_id;
+    }
 }
